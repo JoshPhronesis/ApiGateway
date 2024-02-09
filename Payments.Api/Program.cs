@@ -26,7 +26,6 @@ builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IPaymentProcessor, PaymentProcessor>();
 builder.Services.AddEventHandlers(typeof(Program));
 builder.Services.AddCommandHandlers(typeof(Program));
-builder.Services.Configure<QueueSettings>(builder.Configuration.GetSection("QueueSettings"));
 
 var app = builder.Build();
 

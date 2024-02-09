@@ -25,7 +25,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
-builder.Services.Configure<QueueSettings>(builder.Configuration.GetSection("QueueSettings"));
 
 var app = builder.Build();
 

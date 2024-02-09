@@ -1,4 +1,3 @@
-using Amazon.SQS;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +12,7 @@ using Shipping.Api.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -25,12 +22,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddScoped<IShippingRequestRepository, ShippingRequestRepository>();
-builder.Services.AddScoped<ISqsMessenger, SqsMessenger>();
-builder.Services.AddSingleton<IAmazonSQS, AmazonSQSClient>();
-builder.Services.AddSingleton<IEventListener, SqsMessenger>();
 builder.Services.AddEventHandlers(typeof(Program));
 builder.Services.AddCommandHandlers(typeof(Program));
-builder.Services.Configure<QueueSettings>(builder.Configuration.GetSection("QueueSettings"));
 
 var app = builder.Build();
 using var serviceScope = app.Services.CreateScope();
